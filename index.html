@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Julia ❤️</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #ffe6ea 0%, #ffc3d1 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        .font-romantic {
+            font-family: 'Caveat', cursive;
+        }
+        
+        /* Animação para os elementos flutuantes (corações e patinhas) */
+        @keyframes floatDown {
+            0% {
+                transform: translateY(-10vh) rotate(0deg) scale(0.8);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        .floating-item {
+            position: fixed;
+            top: -10%;
+            z-index: 50;
+            pointer-events: none;
+            animation: floatDown linear forwards;
+        }
+
+        /* Animação de pulso para o botão */
+        @keyframes pulse-heart {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .btn-pulse {
+            animation: pulse-heart 2s infinite;
+        }
+
+        /* Efeito de flutuação suave para os cards */
+        @keyframes hover-bob {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .card-bob {
+            animation: hover-bob 4s ease-in-out infinite;
+        }
+        .card-bob:nth-child(2) {
+            animation-delay: 1s;
+        }
+        .card-bob:nth-child(3) {
+            animation-delay: 2s;
+        }
+
+        /* Estilos do Jogo da Memória */
+        .memory-card {
+            perspective: 1000px;
+            cursor: pointer;
+        }
+        .memory-card-inner {
+            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transform-style: preserve-3d;
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        .memory-card.flipped .memory-card-inner {
+            transform: rotateY(180deg);
+        }
+        .memory-card-front, .memory-card-back {
+            backface-visibility: hidden;
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 1rem;
+        }
+        .memory-card-front {
+            background-color: #fce7f3; /* pink-100 */
+            transform: rotateY(180deg);
+        }
+        .memory-card-back {
+            background-color: #fff1f2; /* rose-50 */
+            border: 2px dashed #f472b6; /* pink-400 */
+        }
+    </style>
+</head>
+<body class="text-gray-800 antialiased flex flex-col items-center justify-center p-4">
+
+    <!-- Container Principal -->
+    <main class="max-w-3xl w-full bg-white/80 backdrop-blur-md rounded-3xl shadow-2xl overflow-hidden border-4 border-white my-10 relative">
+        
+        <!-- Decoração de topo -->
+        <div class="absolute top-0 left-0 w-full h-4 bg-gradient-to-r from-pink-300 via-red-300 to-pink-300"></div>
+
+        <div class="p-8 md:p-12 text-center">
+            
+            <!-- Título Romântico -->
+            <h1 class="font-romantic text-5xl md:text-7xl text-pink-600 mb-2 drop-shadow-sm">Para a minha querida Julia</h1>
+            <p class="text-lg md:text-xl text-pink-500 font-semibold mb-8">O nosso amor é a coisa mais fofa do mundo! 💖</p>
+
+            <!-- Arte Central com Emojis -->
+            <div class="flex justify-center items-center gap-4 text-7xl md:text-8xl mb-8 select-none">
+                <span class="transform transition hover:scale-125 hover:rotate-12 cursor-pointer duration-300">🐶</span>
+                <span class="text-5xl md:text-6xl text-red-500 animate-pulse">❤️</span>
+                <span class="transform transition hover:scale-125 hover:-rotate-12 cursor-pointer duration-300">🐱</span>
+            </div>
+
+            <p class="text-gray-700 text-lg leading-relaxed mb-10 max-w-2xl mx-auto">
+                Assim como um cachorrinho animado e um gatinho carinhoso formam a dupla mais adorável, nós dois juntos somos a combinação perfeita. Cada momento com você me faz querer abanar o rabinho de felicidade e ronronar de tanto amor! 🥰
+            </p>
+
+            <!-- Cards Fofos -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                <!-- Card 1 -->
+                <div class="card-bob bg-pink-50 p-6 rounded-2xl border-2 border-pink-200 shadow-sm hover:shadow-md transition">
+                    <div class="text-4xl mb-3">🦴</div>
+                    <h3 class="font-romantic text-2xl text-pink-700 mb-2">Meu Catioro</h3>
+                    <p class="text-sm text-gray-600">Sou completamente leal a você. Minha missão é te proteger e te fazer sorrir todos os dias!</p>
+                </div>
+                <!-- Card 2 -->
+                <div class="card-bob bg-purple-50 p-6 rounded-2xl border-2 border-purple-200 shadow-sm hover:shadow-md transition">
+                    <div class="text-4xl mb-3">🧶</div>
+                    <h3 class="font-romantic text-2xl text-purple-700 mb-2">Minha Gatinha</h3>
+                    <p class="text-sm text-gray-600">Você é a dona do meu coração. Quero ficar enroscado com você no sofá assistindo séries para sempre.</p>
+                </div>
+                <!-- Card 3 -->
+                <div class="card-bob bg-red-50 p-6 rounded-2xl border-2 border-red-200 shadow-sm hover:shadow-md transition">
+                    <div class="text-4xl mb-3">🐾</div>
+                    <h3 class="font-romantic text-2xl text-red-700 mb-2">Nossas Patinhas</h3>
+                    <p class="text-sm text-gray-600">Juntos caminhamos na mesma direção, deixando marcas de amor por onde passamos.</p>
+                </div>
+            </div>
+
+            <!-- Botão Interativo -->
+            <button id="surpriseBtn" class="btn-pulse bg-gradient-to-r from-pink-500 to-red-500 text-white font-bold py-4 px-8 rounded-full shadow-lg hover:shadow-xl hover:from-pink-600 hover:to-red-600 transform transition hover:-translate-y-1 text-xl flex items-center justify-center mx-auto gap-2">
+                <span>Clique para uma Surpresa</span>
+                <span class="text-2xl">✨</span>
+            </button>
+
+            <!-- Mensagem Escondida -->
+            <div id="hiddenMessage" class="hidden mt-8 p-6 bg-pink-100 rounded-2xl border border-pink-300 transform transition-all opacity-0">
+                <p class="font-romantic text-3xl text-pink-800">Eu gosto muito de você e te adoro, Julia! 💕</p>
+                <p class="text-pink-600 mt-2">Você é o "au-au" e o "miau" da minha vida!</p>
+            </div>
+
+            <!-- SEÇÃO DE JOGUINHOS -->
+            
+            <!-- Jogo 1: Jogo da Memória -->
+            <div class="mt-16 pt-10 border-t-2 border-pink-100 text-center w-full">
+                <h2 class="font-romantic text-4xl text-pink-600 mb-2">Jogo da Memória 🧩</h2>
+                <p class="text-gray-500 mb-8">Encontre os pares fofinhos para revelar uma surpresa!</p>
+                
+                <!-- Grid adaptado para ficar perfeito no celular e desktop -->
+                <div id="memory-board" class="grid grid-cols-3 md:grid-cols-4 gap-3 md:gap-4 max-w-[280px] md:max-w-md mx-auto aspect-[3/4] md:aspect-auto mb-4">
+                    <!-- Cards injetados via JS -->
+                </div>
+                
+                <div id="game-win-msg" class="hidden mt-6 p-4 bg-green-50 rounded-xl border border-green-200 text-green-700 font-bold animate-bounce mx-auto max-w-sm">
+                    Você encontrou todos os pares! E eu encontrei o amor da minha vida! ❤️
+                </div>
+                <button id="restart-game" class="mt-4 hidden bg-pink-400 text-white font-bold px-6 py-2 rounded-full shadow hover:bg-pink-500 transition mx-auto block">Jogar de Novo</button>
+            </div>
+
+            <!-- Jogo 2: Medidor de Amor (Clicker) -->
+            <div class="mt-12 w-full text-center p-6 md:p-8 bg-gradient-to-br from-red-50 to-pink-50 rounded-3xl border-2 border-pink-200 shadow-inner">
+                <h2 class="font-romantic text-4xl text-red-500 mb-2">Medidor de Carinho 🧸</h2>
+                <p class="text-sm text-gray-600 mb-6">Faça carinho (clique ou toque) nos bichinhos para encher a nossa barra de amor!</p>
+                
+                <div class="text-6xl md:text-7xl cursor-pointer select-none mb-6 flex justify-center gap-8" id="pet-container">
+                    <div class="hover:scale-110 active:scale-95 transition transform duration-100" id="pet-dog">🐶</div>
+                    <div class="hover:scale-110 active:scale-95 transition transform duration-100" id="pet-cat">🐱</div>
+                </div>
+
+                <!-- Barra de progresso -->
+                <div class="w-full bg-white rounded-full h-8 border-2 border-pink-200 overflow-hidden relative shadow-sm max-w-lg mx-auto">
+                    <div id="love-bar" class="bg-gradient-to-r from-pink-400 via-red-400 to-red-500 h-full w-0 transition-all duration-300 ease-out"></div>
+                    <span class="absolute inset-0 flex items-center justify-center text-sm font-bold text-gray-700 drop-shadow-sm" id="love-text">0%</span>
+                </div>
+                
+                <p id="love-full-msg" class="hidden font-romantic text-2xl md:text-3xl text-red-600 mt-6 animate-pulse">Nosso amor transbordou! Te adoro DEMAIS! 🌋❤️❤️</p>
+            </div>
+            <!-- FIM DA SEÇÃO DE JOGUINHOS -->
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-pink-600/80 text-sm font-semibold mb-4 text-center">
+        Feito com muito ❤️ e 🐾 especialmente para a Julia.
+    </footer>
+
+    <!-- Script para interação e efeitos de chuva de corações/patinhas -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btn = document.getElementById('surpriseBtn');
+            const hiddenMsg = document.getElementById('hiddenMessage');
+            
+            const emojis = ['❤️', '💖', '🐾', '🐶', '🐱', '✨', '💕', '🥰', '🦴'];
+
+            btn.addEventListener('click', () => {
+                // Mostra a mensagem escondida
+                hiddenMsg.classList.remove('hidden');
+                setTimeout(() => {
+                    hiddenMsg.classList.remove('opacity-0');
+                }, 50);
+
+                // Cria uma "chuva" de emojis fofos
+                createRain();
+                
+                // Altera o texto do botão
+                btn.innerHTML = '<span>Te adoro!</span> <span class="text-2xl">💖</span>';
+                btn.classList.remove('btn-pulse');
+            });
+
+            function createRain() {
+                // Cria 50 elementos caindo
+                for (let i = 0; i < 50; i++) {
+                    setTimeout(() => {
+                        const el = document.createElement('div');
+                        el.classList.add('floating-item');
+                        
+                        // Sorteia o emoji
+                        el.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                        
+                        // Posição horizontal aleatória (0% a 100%)
+                        el.style.left = Math.random() * 100 + 'vw';
+                        
+                        // Tamanho aleatório (1rem a 3rem)
+                        el.style.fontSize = (Math.random() * 2 + 1) + 'rem';
+                        
+                        // Duração da animação aleatória (3s a 6s)
+                        const duration = Math.random() * 3 + 3;
+                        el.style.animationDuration = duration + 's';
+                        
+                        document.body.appendChild(el);
+
+                        // Remove o elemento após a animação para não pesar o navegador
+                        setTimeout(() => {
+                        el.remove();
+                    }, duration * 1000);
+                }, i * 100); // Intervalo de 100ms entre cada emoji surgindo
+            }
+        }
+
+        // ==========================================
+        // LÓGICA DO JOGO DA MEMÓRIA
+        // ==========================================
+        const memoryBoard = document.getElementById('memory-board');
+        const winMsg = document.getElementById('game-win-msg');
+        const restartBtn = document.getElementById('restart-game');
+        
+        const gameEmojis = ['🐶', '🐱', '❤️', '🦴', '🧶', '🐾'];
+        let memoryCards = [...gameEmojis, ...gameEmojis];
+        let hasFlippedCard = false;
+        let lockBoard = false;
+        let firstCard, secondCard;
+        let matchedPairs = 0;
+
+        function shuffle(array) {
+            array.sort(() => Math.random() - 0.5);
+        }
+
+        function createMemoryBoard() {
+            memoryBoard.innerHTML = '';
+            shuffle(memoryCards);
+            matchedPairs = 0;
+            winMsg.classList.add('hidden');
+            restartBtn.classList.add('hidden');
+
+            memoryCards.forEach(emoji => {
+                const card = document.createElement('div');
+                card.classList.add('memory-card', 'h-20', 'w-20', 'sm:h-24', 'sm:w-24', 'md:h-28', 'md:w-28', 'm-auto');
+                card.dataset.emoji = emoji;
+
+                card.innerHTML = `
+                    <div class="memory-card-inner">
+                        <div class="memory-card-front text-4xl md:text-5xl shadow-md border-2 border-pink-300 shadow-pink-200">
+                            ${emoji}
+                        </div>
+                        <div class="memory-card-back text-3xl shadow-sm text-pink-300 hover:text-pink-400 hover:bg-pink-50 transition border border-pink-200 rounded-2xl">
+                            ❓
+                        </div>
+                    </div>
+                `;
+
+                card.addEventListener('click', flipCard);
+                memoryBoard.appendChild(card);
+            });
+        }
+
+        function flipCard() {
+            if (lockBoard) return;
+            if (this === firstCard) return;
+
+            this.classList.add('flipped');
+
+            if (!hasFlippedCard) {
+                hasFlippedCard = true;
+                firstCard = this;
+                return;
+            }
+
+            secondCard = this;
+            checkForMatch();
+        }
+
+        function checkForMatch() {
+            let isMatch = firstCard.dataset.emoji === secondCard.dataset.emoji;
+            isMatch ? disableCards() : unflipCards();
+        }
+
+        function disableCards() {
+            firstCard.removeEventListener('click', flipCard);
+            secondCard.removeEventListener('click', flipCard);
+            
+            // Efeito visual quando acerta o par
+            firstCard.querySelector('.memory-card-front').classList.replace('border-pink-300', 'border-green-400');
+            secondCard.querySelector('.memory-card-front').classList.replace('border-pink-300', 'border-green-400');
+            firstCard.querySelector('.memory-card-front').classList.add('bg-green-100');
+            secondCard.querySelector('.memory-card-front').classList.add('bg-green-100');
+
+            matchedPairs++;
+            if(matchedPairs === gameEmojis.length) {
+                setTimeout(() => {
+                    winMsg.classList.remove('hidden');
+                    restartBtn.classList.remove('hidden');
+                    createRain(); // Usa a mesma chuva de amor!
+                }, 500);
+            }
+            resetBoard();
+        }
+
+        function unflipCards() {
+            lockBoard = true;
+            setTimeout(() => {
+                firstCard.classList.remove('flipped');
+                secondCard.classList.remove('flipped');
+                resetBoard();
+            }, 1000);
+        }
+
+        function resetBoard() {
+            [hasFlippedCard, lockBoard] = [false, false];
+            [firstCard, secondCard] = [null, null];
+        }
+        
+        restartBtn.addEventListener('click', createMemoryBoard);
+        createMemoryBoard(); // Inicia o jogo ao carregar a página
+
+
+        // ==========================================
+        // LÓGICA DO MEDIDOR DE CARINHO
+        // ==========================================
+        let loveProgress = 0;
+        const loveBar = document.getElementById('love-bar');
+        const loveText = document.getElementById('love-text');
+        const loveFullMsg = document.getElementById('love-full-msg');
+        const petDog = document.getElementById('pet-dog');
+        const petCat = document.getElementById('pet-cat');
+        
+        function petAnimal(event) {
+            // Previne zoom/scroll indesejado em celulares ao dar toques rápidos
+            if (event && event.type === 'touchstart') {
+                event.preventDefault();
+            }
+
+            if (loveProgress >= 100) return;
+            
+            loveProgress += 5; // 20 toques para encher a barra 100%
+            if (loveProgress > 100) loveProgress = 100;
+
+            loveBar.style.width = loveProgress + '%';
+            loveText.innerText = loveProgress + '%';
+            
+            // Efeito visual de clique no bichinho
+            const element = event.target;
+            element.style.transform = 'scale(0.9)';
+            setTimeout(() => element.style.transform = '', 100);
+            
+            if (loveProgress >= 100) {
+                loveFullMsg.classList.remove('hidden');
+                createRain(); 
+                // Desativa os cliques
+                petDog.style.pointerEvents = 'none';
+                petCat.style.pointerEvents = 'none';
+                petDog.classList.remove('hover:scale-110');
+                petCat.classList.remove('hover:scale-110');
+            }
+        }
+        
+        petDog.addEventListener('click', petAnimal);
+        petCat.addEventListener('click', petAnimal);
+        petDog.addEventListener('touchstart', petAnimal, {passive: false});
+        petCat.addEventListener('touchstart', petAnimal, {passive: false});
+
+    });
+    </script>
+</body>
+</html>
